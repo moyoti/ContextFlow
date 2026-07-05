@@ -1,0 +1,21 @@
+{
+  "max_tokens": 8000,
+  "trigger_percent": 80,
+  "keep_recent": 4,
+  "auto_compress": true,
+  "model_limits": {
+    "astron-code-latest": 256000,
+    "gpt-4o": 128000,
+    "gpt-4o-mini": 128000,
+    "gpt-4-turbo": 128000,
+    "gpt-4": 8192,
+    "gpt-3.5-turbo": 16385,
+    "claude-3-opus": 200000,
+    "claude-3-5-sonnet": 200000,
+    "claude-3-haiku": 200000,
+    "deepseek-chat": 65536,
+    "deepseek-v3": 65536,
+    "qwen-turbo": 131072,
+    "qwen-plus": 131072
+  }
+}
