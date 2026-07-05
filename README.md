@@ -29,7 +29,6 @@ codely extensions install https://github.com/moyoti/ContextFlow
   "keep_recent": 4,
   "auto_compress": true,
   "model_limits": {
-    "astron-code-latest": 256000,
     "gpt-4o": 128000,
     "gpt-4o-mini": 128000,
     "gpt-4-turbo": 128000,
