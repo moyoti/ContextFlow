@@ -13,7 +13,7 @@ ContextFlow 是一个 Tuanjie Cowork 扩展插件，自动监控对话上下文 
 ## 安装
 
 ```bash
-codely extensions install https://github.com/<your-username>/ContextFlow
+codely extensions install https://github.com/moyoti/ContextFlow
 ```
 
 安装后重启 Cowork 即可使用。
