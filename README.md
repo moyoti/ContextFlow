@@ -6,7 +6,7 @@ ContextFlow 是一个 Tuanjie Cowork 扩展插件，自动监控对话上下文 
 
 - 🔄 **自动压缩**：对话 Token 达到阈值时自动触发摘要压缩
 - 📊 **可配置上下文窗口**：支持按模型设定不同 Token 上限
-- 🧠 **零外部依赖**：context-compressor 自己就是 LLM，用推理生成摘要，无需额外 API
+- 🧠 **零额外 Token 开销**：主 Agent 内联自检，不委托子 Agent，不花额外 Token
 - 🎯 **精准阈值**：默认 80% Token 使用率触发压缩，可自定义
 - 🌐 **CJK 感知**：Token 估算区分中英文（中文 ~1.5 字符/token，英文 ~4 字符/token）
 
@@ -55,14 +55,15 @@ codely extensions install https://github.com/moyoti/ContextFlow
 
 ## 工作原理
 
+主 Agent **内联自检**，不委托子 Agent，零额外 Token 开销：
+
 ```
-对话超过 10 条 → 主 Agent 委托 context-compressor
+对话超过 10 条 → 主 Agent 心算 Token 数
                         ↓
-              context-compressor（自己就是 LLM）
-              1. 读取 config.json 获取当前模型的 Token 上限
-              2. 估算对话 Token 数
-              3. 未达阈值 → 静默继续
-              4. 达到阈值 → 生成摘要，保留最近 N 条消息
+              读 config.json 获取当前模型上限
+                        ↓
+              未达阈值 → 正常回应
+              达到阈值 → 回应开头加 <!-- context-summary: ... --> 摘要
 ```
 
 ## 使用
