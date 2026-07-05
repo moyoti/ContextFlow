@@ -1,6 +1,13 @@
 {
   "name": "ContextFlow",
-  "version": "1.0.0",
-  "description": "ContextFlow 是一款 LLM 上下文自动管理插件，支持按模型自定义上下文窗口上限，在 Token 使用接近阈值时自动进行摘要压缩。零外部依赖，context-compressor 自己就是 LLM。",
-  "contextFileName": "GEMINI.md"
+  "version": "1.1.0",
+  "description": "ContextFlow 是一款 LLM 上下文自动管理插件，支持按模型自定义上下文窗口上限，在 Token 使用接近阈值时自动进行摘要压缩。内置 MCP Server 精确计算 Token 数。",
+  "contextFileName": "GEMINI.md",
+  "mcpServers": {
+    "contextflow": {
+      "command": "node",
+      "args": ["${extensionPath}${/}mcp-server${/}index.js"],
+      "cwd": "${extensionPath}"
+    }
+  }
 }

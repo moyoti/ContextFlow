@@ -1,0 +1,10 @@
+{
+  "name": "contextflow-mcp",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "ContextFlow MCP Server - precise token counting for conversation context management",
+  "main": "index.js",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1"
+  }
+}

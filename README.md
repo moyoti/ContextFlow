@@ -6,7 +6,7 @@ ContextFlow 是一个 Tuanjie Cowork 扩展插件，自动监控对话上下文 
 
 - 🔄 **自动压缩**：对话 Token 达到阈值时自动触发摘要压缩
 - 📊 **可配置上下文窗口**：支持按模型设定不同 Token 上限
-- 🧠 **零额外 Token 开销**：主 Agent 内联自检，不委托子 Agent，不花额外 Token
+- 🧠 **MCP Server 精确计算**：读取 Cowork 自动保存，逐字统计 CJK/拉丁字符，不再靠心算猜测
 - 🎯 **精准阈值**：默认 80% Token 使用率触发压缩，可自定义
 - 🌐 **CJK 感知**：Token 估算区分中英文（中文 ~1.5 字符/token，英文 ~4 字符/token）
 
@@ -55,12 +55,13 @@ codely extensions install https://github.com/moyoti/ContextFlow
 
 ## 工作原理
 
-主 Agent **内联自检**，不委托子 Agent，零额外 Token 开销：
+主 Agent 调用 MCP 工具精确计算，不委托子 Agent：
 
 ```
-对话超过 10 条 → 主 Agent 心算 Token 数
+对话超过 10 条 → 调用 get_context_status MCP 工具
                         ↓
-              读 config.json 获取当前模型上限
+              读取 Cowork 最新自动保存
+              逐字统计 CJK/拉丁字符 → 精确 Token 估算
                         ↓
               未达阈值 → 正常回应
               达到阈值 → 回应开头加 <!-- context-summary: ... --> 摘要
@@ -79,12 +80,15 @@ codely extensions install https://github.com/moyoti/ContextFlow
 
 ```
 ContextFlow/
-├── gemini-extension.json      # 扩展清单
+├── gemini-extension.json      # 扩展清单（声明 MCP Server）
 ├── config.json                # 上下文窗口配置
 ├── README.md                  # 本文件
 ├── GEMINI.md                  # 模型持久上下文
+├── mcp-server/
+│   ├── index.js               # MCP Server（精确 Token 计算）
+│   └── package.json           # Node.js 依赖
 ├── agents/
-│   └── context-compressor.toml  # 上下文压缩子 Agent
+│   └── context-compressor.toml  # 可选手动压缩 Agent
 └── skills/
     └── context-management/
         └── SKILL.md             # 上下文管理技能文档
