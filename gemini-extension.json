@@ -5,8 +5,8 @@
   "contextFileName": "GEMINI.md",
   "mcpServers": {
     "contextflow": {
-      "command": "node",
-      "args": ["${extensionPath}${/}mcp-server${/}index.js"],
+      "command": "bash",
+      "args": ["${extensionPath}${/}mcp-server${/}start.sh"],
       "cwd": "${extensionPath}"
     }
   }

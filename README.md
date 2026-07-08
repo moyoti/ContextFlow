@@ -10,6 +10,11 @@ ContextFlow 是一个 Tuanjie Cowork 扩展插件，自动监控对话上下文 
 - 🎯 **精准阈值**：默认 80% Token 使用率触发压缩，可自定义
 - 🌐 **CJK 感知**：Token 估算区分中英文（中文 ~1.5 字符/token，英文 ~4 字符/token）
 
+## 前置要求
+
+- **bash**（macOS / Linux 自带）
+- **Node.js**（v16+）— MCP Server 运行所需，无需手动配置路径，`start.sh` 会自动在常见位置查找
+
 ## 安装
 
 ```bash
@@ -17,6 +22,8 @@ codely extensions install https://github.com/moyoti/ContextFlow
 ```
 
 安装后重启 Cowork 即可使用。
+
+> **注意**：如果 MCP Server 无法启动，请确认系统已安装 Node.js。`start.sh` 会按以下顺序查找：`/opt/homebrew/bin/node` → `/usr/local/bin/node` → `/usr/bin/node` → nvm/volta 路径 → 系统 PATH。
 
 ## 配置
 
@@ -86,6 +93,7 @@ ContextFlow/
 ├── GEMINI.md                  # 模型持久上下文
 ├── mcp-server/
 │   ├── index.js               # MCP Server（精确 Token 计算）
+│   ├── start.sh               # 跨平台启动脚本（自动查找 node）
 │   └── package.json           # Node.js 依赖
 ├── agents/
 │   └── context-compressor.toml  # 可选手动压缩 Agent
